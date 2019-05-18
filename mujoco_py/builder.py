@@ -19,6 +19,7 @@ from Cython.Distutils.old_build_ext import old_build_ext as build_ext
 from mujoco_py.version import get_version
 from lockfile import LockFile
 import subprocess
+import pkgconfig
 
 from mujoco_py.utils import discover_mujoco, MISSING_KEY_MESSAGE
 
@@ -206,6 +207,7 @@ class MujocoExtensionBuilder():
                 self.CYMJ_DIR_PATH,
                 join(mujoco_path, 'include'),
                 np.get_include(),
+                pkgconfig.cflags('osmesa')[2:],
             ],
             libraries=['mujoco200'],
             library_dirs=[join(mujoco_path, 'bin')],
